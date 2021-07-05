@@ -1,0 +1,10 @@
+[
+  {
+    "ticker": "RUB",
+    "currency": "Рубль"
+  },
+  {
+    "ticker": "USD",
+    "currency": "Доллар"
+  }
+]
