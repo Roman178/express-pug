@@ -17,7 +17,10 @@ app.get("/", function (req, res) {
 
 app.get("/api", (req, res) => {
   const data = require("./db.json");
-  res.status(200).send(data);
+  // const data = [];
+
+  if (data.length) return res.status(200).json(data);
+  else return res.sendStatus(204);
 });
 
 app.post("/api", (req, res) => {

@@ -6,6 +6,7 @@ async function fetchData(method = "GET", body = null, headers = {}) {
     }
 
     const res = await fetch("/api", { method, headers, body });
+    if (res.status === 204) throw new Error("Нет сохраненных валют.");
     const data = await res.json();
 
     if (!res.ok) {
