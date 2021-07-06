@@ -2,31 +2,30 @@ const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
+const routes = require("./routes/currencyRouter")();
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 const port = 5000;
 
 app.set("view engine", "pug");
 
-app.get("/", function (req, res) {
-  res.render("index");
+// Не совсем хорошее решение. Надо исправить.
+app.get("/home", function (req, res) {
+  res.render("home");
+});
+app.get("/add", function (req, res) {
+  res.render("add");
+});
+app.get("/edit", function (req, res) {
+  res.render("edit");
 });
 
-app.get("/api", (req, res) => {
-  const data = require("./db.json");
-  // const data = [];
-
-  if (data.length) return res.status(200).json(data);
-  else return res.sendStatus(204);
-});
-
-app.post("/api", (req, res) => {
-  console.log(req.body);
-  res.json({ ...req.body, server: "hello from server" });
-});
+app.use("/api", routes);
 
 app.listen(port, () => {
   console.log(`Server is running on ${port}`);

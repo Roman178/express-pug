@@ -1,0 +1,15 @@
+html
+  head
+    title='Testing task Evercode'
+    link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x' crossorigin='anonymous')
+  body
+    h1(class='h1')= 'Dashboard'
+    div(class='container d-flex flex-column')
+      a(href="add")= 'add page'
+      a(href="edit")= 'edit page'
+    button(class='btn-primary')= 'Add currency'    
+    script
+      include scripts/api/request.js       
+    script 
+      include scripts/index.js
+

@@ -1,0 +1,5 @@
+[
+  { "id": 3, "ticker": "USD", "currency": "Доллар" },
+  { "id": 5, "ticker": "EUR", "currency": "Евро" },
+  { "id": 4, "ticker": "RUB", "currency": "Рубль" }
+]
