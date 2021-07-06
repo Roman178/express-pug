@@ -1,8 +1,3 @@
-const h2 = document.createElement("h2");
-h2.textContent = "HELLO FROM SCRIPTS!";
-h2.classList.add("card-title");
-document.body.prepend(h2);
-
 function createCardCurrency(data) {
   const card = document.createElement("div");
   const ticker = document.createElement("h3");
@@ -10,6 +5,7 @@ function createCardCurrency(data) {
   const idCurrency = document.createElement("span");
   const btnDelete = document.createElement("button");
   const btnEdit = document.createElement("button");
+  const btnEditAnchor = document.createElement("a");
 
   card.classList.add(
     "my-card",
@@ -20,20 +16,31 @@ function createCardCurrency(data) {
     "border"
   );
 
-  ticker.classList.add("h3", "ticker");
+  ticker.classList.add("h3", "ticker", "flex-grow-1");
   ticker.textContent = data.ticker;
 
-  nameCurrency.classList.add("h4", "name-currency");
+  nameCurrency.classList.add("h4", "name-currency", "w-25");
   nameCurrency.textContent = data.currency;
 
-  idCurrency.classList.add("id-currency");
+  idCurrency.classList.add("id-currency", "flex-grow-1");
   idCurrency.textContent = data.id;
 
-  btnEdit.classList.add("btn-warning");
-  btnEdit.textContent = "Edit";
+  btnEditAnchor.setAttribute("href", "add");
+  btnEditAnchor.classList.add("my-anchor");
+  btnEditAnchor.textContent = "Edit";
 
-  btnDelete.classList.add("btn-danger");
+  btnEdit.appendChild(btnEditAnchor);
+  btnEdit.classList.add("btn-warning", "flex-grow-1");
+  btnEdit.addEventListener("click", () => {
+    localStorage.setItem("currencyToUpdate", JSON.stringify(data));
+  });
+
+  btnDelete.classList.add("btn-danger", "flex-grow-1");
   btnDelete.textContent = "Delete";
+  btnDelete.addEventListener("click", () => {
+    deleteCurrency(data);
+    document.location.reload();
+  });
 
   [ticker, nameCurrency, idCurrency, btnEdit, btnDelete].forEach((item) => {
     card.appendChild(item);
@@ -50,8 +57,4 @@ async function createListCurrency() {
   });
 }
 
-createListCurrency().then(() => {
-  const buttonsDelete = document.querySelectorAll(".btn-danger");
-
-  btnDelete.addEventListener("click", () => console.log("HIII"));
-});
+createListCurrency();

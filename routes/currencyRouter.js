@@ -60,7 +60,7 @@ function routes() {
       );
       fs.writeFileSync("./db/db.json", JSON.stringify(updListCurrency));
 
-      return res.json(updListCurrency);
+      return res.json(foundCurrency);
     });
 
   return currencyRouter;

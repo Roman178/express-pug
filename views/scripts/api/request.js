@@ -4,21 +4,33 @@ async function fetchData(method = "GET", body = null, headers = {}) {
       body = JSON.stringify(body);
       headers = {
         "Content-Type": "application/json",
-        "Cache-Control": "no-cache",
       };
     }
 
-    const res = await fetch("/api/currency", { method, headers, body });
-    if (res.status === 204) throw new Error("Нет сохраненных валют.");
-    const data = await res.json();
+    let data = [];
+    if (method === "GET" || method === "POST") {
+      const res = await fetch("/api/currency", { method, headers, body });
+      if (!res.ok) throw new Error(data.message || "Что-то пошло не так");
+      if (res.status === 204)
+        return { message: "Нет сохраненных валют. Добавьте новую валюту." };
 
-    if (!res.ok) {
-      throw new Error(data.message || "Что-то пошло не так");
+      data = await res.json();
+    }
+
+    if (method === "DELETE" || method === "PUT") {
+      const res = await fetch(`/api/currency/${body.id}`, {
+        method,
+        headers,
+        body,
+      });
+      if (!res.ok) throw new Error(data.message || "Что-то пошло не так");
+
+      data = await res.json();
     }
 
     return data;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 }
 
@@ -27,14 +39,15 @@ async function getAllCurrency() {
     const allCurrency = await fetchData();
     return allCurrency;
   } catch (error) {
-    console.error(error.message);
+    throw new Error(error);
   }
 }
 
-async function postCurrency() {
+async function postCurrency(currencyToPost) {
   try {
-    const postedCurrency = await fetchData("POST", { test: 3, kol: "pop" });
+    const postedCurrency = await fetchData("POST", currencyToPost);
     console.log(postedCurrency);
+    return postedCurrency;
   } catch (error) {
     throw new Error(error);
   }
@@ -42,6 +55,8 @@ async function postCurrency() {
 
 async function deleteCurrency(currencyToDelete) {
   try {
+    const data = await fetchData("DELETE", currencyToDelete);
+    console.log(data);
   } catch (error) {
     throw new Error(error);
   }

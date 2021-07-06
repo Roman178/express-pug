@@ -3,6 +3,7 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const { constants } = require("buffer");
 const routes = require("./routes/currencyRouter")();
 
 const app = express();
@@ -14,7 +15,7 @@ const port = 5000;
 
 app.set("view engine", "pug");
 
-// Не совсем хорошее решение. Надо исправить.
+// Это временно. Надо исправить.
 app.get("/home", function (req, res) {
   res.render("home");
 });
