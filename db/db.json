@@ -1,6 +1,6 @@
 [
-  { "id": 1, "ticker": "EUR", "currency": "Euro" },
-  { "id": 2, "ticker": "USD", "currency": "Dollar" },
-  { "id": 3, "ticker": "CNY", "currency": "Yuan" },
-  { "id": 4, "ticker": "JPY", "currency": "Yen" }
+  { "id": 2, "ticker": "EUR", "currency": "Euro" },
+  { "id": 4, "ticker": "JPY", "currency": "Yen" },
+  { "id": 5, "ticker": "LIRA", "currency": "lira" },
+  { "id": 7, "ticker": "FRA", "currency": "Frank" }
 ]

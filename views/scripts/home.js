@@ -25,17 +25,17 @@ function createCardCurrency(data) {
   idCurrency.classList.add("id-currency", "flex-grow-1");
   idCurrency.textContent = data.id;
 
-  btnEditAnchor.setAttribute("href", "add");
+  btnEditAnchor.setAttribute("href", "edit");
   btnEditAnchor.classList.add("my-anchor");
   btnEditAnchor.textContent = "Edit";
 
   btnEdit.appendChild(btnEditAnchor);
-  btnEdit.classList.add("btn-warning", "flex-grow-1");
+  btnEdit.classList.add("btn-warning", "flex-grow-1", "p-0");
   btnEdit.addEventListener("click", () => {
     localStorage.setItem("currencyToUpdate", JSON.stringify(data));
   });
 
-  btnDelete.classList.add("btn-danger", "flex-grow-1");
+  btnDelete.classList.add("btn-danger", "flex-grow-1", "p-0");
   btnDelete.textContent = "Delete";
   btnDelete.addEventListener("click", () => {
     deleteCurrency(data);

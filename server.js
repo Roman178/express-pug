@@ -3,7 +3,6 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const { constants } = require("buffer");
 const routes = require("./routes/currencyRouter")();
 
 const app = express();

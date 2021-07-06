@@ -61,3 +61,12 @@ async function deleteCurrency(currencyToDelete) {
     throw new Error(error);
   }
 }
+
+async function putCurrency(currencyToUpdate) {
+  try {
+    const data = await fetchData("PUT", currencyToUpdate);
+    console.log(data);
+  } catch (error) {
+    throw new Error(error);
+  }
+}

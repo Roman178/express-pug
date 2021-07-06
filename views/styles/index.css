@@ -1,4 +1,6 @@
 .my-anchor {
+  display: inline-block;
+  width: 100%;
   color: inherit;
   text-decoration: none;
 }
