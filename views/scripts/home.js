@@ -51,6 +51,14 @@ function createCardCurrency(data) {
 
 async function createListCurrency() {
   const arrCurrency = await getAllCurrency();
+  if (arrCurrency.message) {
+    const blockEmptyList = document.createElement("h4");
+    blockEmptyList.classList.add("block-empty-list");
+    blockEmptyList.textContent = arrCurrency.message;
+
+    const addBtn = document.querySelector("button");
+    return addBtn.after(blockEmptyList);
+  }
   arrCurrency.forEach(function (item) {
     const newCard = createCardCurrency(item);
     document.querySelector("script").before(newCard);
@@ -58,3 +66,48 @@ async function createListCurrency() {
 }
 
 createListCurrency();
+
+function searcher(inputSelectorWithValue, iterableSelector) {
+  const inputText = document.querySelector(inputSelectorWithValue).value;
+  const cards = document.querySelectorAll(".my-card");
+  if (cards.length === 0) return;
+
+  const nodeEls = document.querySelectorAll(iterableSelector);
+  const nodeElsArr = Array.from(nodeEls);
+  const texts = nodeElsArr.map((nodeEl) => nodeEl.textContent);
+  const foundTexts = texts.filter(
+    (text) => text.toUpperCase() === inputText.toUpperCase()
+  );
+  if (foundTexts.length === 0) return;
+
+  nodeEls.forEach((el) => {
+    if (el.textContent.toUpperCase() !== inputText.toUpperCase()) {
+      return el.closest(".my-card").remove();
+    }
+    return;
+  });
+}
+
+const btnSearchTicker = document.querySelector("#my-ticker-searcher-btn");
+const btnSearchCurrency = document.querySelector("#my-currency-searcher-btn");
+const inputSearchTicker = document.querySelector("#my-ticker-searcher-input");
+const inputSearchCurrency = document.querySelector(
+  "#my-currency-searcher-input"
+);
+
+btnSearchTicker.addEventListener("click", () =>
+  searcher("#my-ticker-searcher-input", ".ticker")
+);
+btnSearchCurrency.addEventListener("click", () => {
+  searcher("#my-currency-searcher-input", ".name-currency");
+});
+inputSearchTicker.addEventListener("keydown", (e) => {
+  if (e.code === "Enter") {
+    searcher("#my-ticker-searcher-input", ".ticker");
+  }
+});
+inputSearchCurrency.addEventListener("keydown", (e) => {
+  if (e.code === "Enter") {
+    searcher("#my-currency-searcher-input", ".name-currency");
+  }
+});

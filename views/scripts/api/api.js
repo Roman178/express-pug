@@ -10,9 +10,17 @@ async function fetchData(method = "GET", body = null, headers = {}) {
     let data = [];
     if (method === "GET" || method === "POST") {
       const res = await fetch("/api/currency", { method, headers, body });
-      if (!res.ok) throw new Error(data.message || "Что-то пошло не так");
+
+      if (!res.ok) {
+        const errors = await res.json();
+        if (errors.errors) {
+          return errors;
+        }
+      }
       if (res.status === 204)
-        return { message: "Нет сохраненных валют. Добавьте новую валюту." };
+        return {
+          message: "There are no saved currencies. Add a new currency.",
+        };
 
       data = await res.json();
     }
@@ -23,7 +31,12 @@ async function fetchData(method = "GET", body = null, headers = {}) {
         headers,
         body,
       });
-      if (!res.ok) throw new Error(data.message || "Что-то пошло не так");
+      if (!res.ok) {
+        const errors = await res.json();
+        if (errors.errors) {
+          return errors;
+        }
+      }
 
       data = await res.json();
     }
@@ -45,9 +58,8 @@ async function getAllCurrency() {
 
 async function postCurrency(currencyToPost) {
   try {
-    const postedCurrency = await fetchData("POST", currencyToPost);
-    console.log(postedCurrency);
-    return postedCurrency;
+    const result = await fetchData("POST", currencyToPost);
+    return result;
   } catch (error) {
     throw new Error(error);
   }
@@ -56,7 +68,6 @@ async function postCurrency(currencyToPost) {
 async function deleteCurrency(currencyToDelete) {
   try {
     const data = await fetchData("DELETE", currencyToDelete);
-    console.log(data);
   } catch (error) {
     throw new Error(error);
   }
@@ -64,9 +75,17 @@ async function deleteCurrency(currencyToDelete) {
 
 async function putCurrency(currencyToUpdate) {
   try {
-    const data = await fetchData("PUT", currencyToUpdate);
-    console.log(data);
+    const result = await fetchData("PUT", currencyToUpdate);
+    return result;
   } catch (error) {
     throw new Error(error);
   }
+}
+
+function handleErrors(err) {
+  const toast = document.createElement("p");
+  toast.classList.add("my-toast");
+  toast.textContent = err.msg;
+  setTimeout(() => toast.remove(), 3500);
+  return document.body.prepend(toast);
 }

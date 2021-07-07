@@ -8,3 +8,11 @@
 .my-anchor:hover {
   color: inherit;
 }
+
+.my-toast {
+  background-color: rgb(204, 93, 93);
+  color: white;
+  font-size: 20px;
+  padding: 15px;
+  border-radius: 10px;
+}

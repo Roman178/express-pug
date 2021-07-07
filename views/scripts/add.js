@@ -2,11 +2,22 @@ const form = document.querySelector("form");
 const ticker = document.querySelector("#ticker");
 const nameCurrency = document.querySelector("#name-currency");
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const data = { ticker: ticker.value, currency: nameCurrency.value };
+  const data = {
+    ticker: ticker.value.toUpperCase(),
+    currency: nameCurrency.value,
+  };
 
-  postCurrency(data);
+  const result = await postCurrency(data);
+  if (result.errors) {
+    const { errors } = result;
+    errors.forEach((e) => {
+      handleErrors(e);
+    });
+    throw new Error(errors.map((e) => e.msg).join(" "));
+  }
+
   return (document.location.href = `${document.location.origin}/home`);
 });

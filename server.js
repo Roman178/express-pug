@@ -14,15 +14,19 @@ const port = 5000;
 
 app.set("view engine", "pug");
 
-// Это временно. Надо исправить.
+app.get("/", function (req, res) {
+  const listCurrency = JSON.parse(fs.readFileSync("./db/db.json"));
+  return res.json(listCurrency);
+});
+
 app.get("/home", function (req, res) {
-  res.render("home");
+  return res.render("home");
 });
 app.get("/add", function (req, res) {
-  res.render("add");
+  return res.render("add");
 });
 app.get("/edit", function (req, res) {
-  res.render("edit");
+  return res.render("edit");
 });
 
 app.use("/api", routes);

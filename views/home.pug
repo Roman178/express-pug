@@ -2,16 +2,27 @@ html
   head
     title='Testing task Evercode'
     link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x' crossorigin='anonymous')
-
-  body(class='container h-100 d-flex flex-column align-items-center justify-content-center')
     style
       include styles/index.css
-    h1(class='h1')= 'Dashboard'
-    div(class='container d-flex flex-column')
-    button(class='btn-primary mb-4')
-      a(href="add" class="my-anchor")= 'Add new currency'    
+
+  //- body(class='container h-100 d-flex flex-column align-items-center justify-content-center')
+  body.container.h-100.d-flex.flex-column.align-items-center.justify-content-center
+    h1.h1 Dashboard
+    div.container.d-flex.flex-column
+    button.btn-primary.mb-4
+      a.my-anchor(href="add") Add a new currency
+
+    div.input-group.w-50.mb-3
+      input#my-ticker-searcher-input.form-control(type='text' placeholder='Search ticker')
+      div.input-group-append
+        button#my-ticker-searcher-btn.btn.btn-secondary(type='button') Search
+    div.input-group.w-50.mb-3
+      input#my-currency-searcher-input.form-control(type='text' placeholder='Search currency')
+      div.input-group-append
+        button#my-currency-searcher-btn.btn.btn-secondary(type='button') Search           
+    
     script
-      include scripts/api/request.js       
+      include scripts/api/api.js       
     script 
       include scripts/home.js
 
